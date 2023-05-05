@@ -28,6 +28,7 @@ private:
     Ui::MainWindow *ui;
     QStringListModel *m_stringListModel;
     QString readdatenow();
+    QString readrealtime();
     classfirebase* m_firebase;
     //classfirebase* m_firebase1;
     classfirebase* m_firebase2;
