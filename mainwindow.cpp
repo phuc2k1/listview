@@ -15,8 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     image1=image->scaled(ui->khosp1->size());
     image2=image->scaled(ui->khosp2->size());
     image3=image->scaled(ui->khosp3->size());
-    debugLogger->log("Start!");
-    debugLogger->log("mitom");
+    debugLogger->log(readrealtime()+ "Start!");
+
 
     robot=new classrobot();
     //ui->label_13->setStyleSheet("background-color:Gray");
@@ -44,13 +44,25 @@ QString MainWindow::readdatenow()
     QString day =QString::number( currentDate.day()).rightJustified(2, '0');
     return day+"_"+month+"_"+year;
 }
+
+QString MainWindow::readrealtime()
+{
+    QDateTime now = QDateTime::currentDateTime();
+    QTime time=now.time();
+    QString min =QString::number( time.minute()).rightJustified(2, '0');
+    QString sec = QString::number(time.second()).rightJustified(2, '0');
+    QString hour=QString::number(time.hour()).rightJustified(2, '0');
+
+    return "->"+hour+":"+ min+":"+sec+ ": ";
+
+}
 void MainWindow::xulychinh(QString tensp,QString masp)
 {
     int vitri=_data.getvitri();
 
         switch(vitri){
         case 1:
-            debugLogger->log("Nhập kho vào vị trí 1");
+            debugLogger->log(readrealtime()+"Nhập kho vào vị trí 1");
             robot->settrangthai(1,1);
             ui->name1->setText(tensp);
             ui->lineEdit->setText(masp);
@@ -58,7 +70,7 @@ void MainWindow::xulychinh(QString tensp,QString masp)
             ui->khosp1->setPixmap(image1);
                     break;
         case 2:
-            debugLogger->log("Nhập kho vào vị trí 2");
+            debugLogger->log(readrealtime()+"Nhập kho vào vị trí 2");
             robot->settrangthai(1,2);
             ui->name2->setText(tensp);
             ui->lineEdit_3->setText(masp);
@@ -66,7 +78,7 @@ void MainWindow::xulychinh(QString tensp,QString masp)
             ui->khosp2->setPixmap(image2);
             break;
         case 3:
-            debugLogger->log("Nhập kho vào vị trí 3");
+            debugLogger->log(readrealtime()+"Nhập kho vào vị trí 3");
             robot->settrangthai(1,3);
             ui->name3->setText(tensp);
             ui->lineEdit_5->setText(masp);
@@ -75,7 +87,7 @@ void MainWindow::xulychinh(QString tensp,QString masp)
             break;
         case 4:
             qDebug()<<"full";
-            debugLogger->log("Kho hàng đã đầy");
+            debugLogger->log(readrealtime()+"Kho hàng đã đầy");
             break;
         }
 
@@ -86,20 +98,20 @@ void MainWindow::onFirebaseDataReceived(QString data)
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
     QString qrcode = jsonObj["belt1"].toString();
-    debugLogger->log("Phát hiện mã code  :"+qrcode);
+    debugLogger->log(readrealtime()+"Phát hiện mã code  :"+qrcode);
     if(qrcode=="0")return;
 
     QString datatxt=_checkdata.checkdatatext(qrcode);
     if(datatxt!="-1"){
 
         QStringList listdata=datatxt.split(":");
-        debugLogger->log("Mã code phù hợp với sản phẩm:"+listdata[0]+":"+listdata[1]);
+        debugLogger->log(readrealtime()+"Mã code phù hợp với sản phẩm:"+listdata[0]+":"+listdata[1]);
         xulychinh(listdata[0],listdata[1]);
 
     }
     else{
         qDebug()<<"NO exit qr in txt";
-        debugLogger->log(" Mã Code :"+qrcode+" ko có trong danh sách");
+        debugLogger->log(readrealtime()+" Mã Code :"+qrcode+" ko có trong danh sách");
     }
 
     //if(_h)
@@ -116,7 +128,7 @@ void MainWindow::DataControlRecieve(QString data)
     switch (codecontrol) {
     case 1:
         if(_data.getdata(0)==true){
-            debugLogger->log( "Xuất kho ở vị trí 1");
+            debugLogger->log(readrealtime()+ "Xuất kho ở vị trí 1");
             robot->settrangthai(2,1);
             ui->name1->clear();
             ui->lineEdit->clear();
@@ -128,7 +140,7 @@ void MainWindow::DataControlRecieve(QString data)
         break;
     case 2:
         if(_data.getdata(1)==true){
-            debugLogger->log("Xuất kho ở vị trí 2");
+            debugLogger->log(readrealtime()+"Xuất kho ở vị trí 2");
             robot->settrangthai(2,2);
             ui->name2->clear();
             ui->lineEdit_3->clear();
@@ -140,7 +152,7 @@ void MainWindow::DataControlRecieve(QString data)
         break;
     case 3:
         if(_data.getdata(2)==true){
-            debugLogger->log("Xuất kho ở vị trí 3");
+            debugLogger->log(readrealtime()+"Xuất kho ở vị trí 3");
             robot->settrangthai(2,3);
             ui->name3->clear();
             ui->lineEdit_5->clear();
@@ -163,7 +175,7 @@ void MainWindow::DataControlRecieve(QString data)
 void MainWindow::on_xuat1_clicked()
 {
     if(_data.getdata(0)==true){
-        debugLogger->log( "Xuất kho ở vị trí 1");
+        debugLogger->log(readrealtime()+ "Xuất kho ở vị trí 1");
         robot->settrangthai(2,1);
         ui->name1->clear();
         ui->lineEdit->clear();
@@ -177,7 +189,7 @@ void MainWindow::on_xuat1_clicked()
 void MainWindow::on_nhap1_clicked()
 {
     if(_data.getdata(0)==false){
-        debugLogger->log("Nhập kho vào vị trí 1");
+        debugLogger->log(readrealtime()+"Nhập kho vào vị trí 1");
         robot->settrangthai(1,1);
         ui->lineEdit_2->setText(readdatenow());
         ui->khosp1->setPixmap(image1);
@@ -188,7 +200,7 @@ void MainWindow::on_nhap1_clicked()
 void MainWindow::on_xuat2_clicked()
 {
     if(_data.getdata(1)==true){
-        debugLogger->log("Xuất kho ở vị trí 2");
+        debugLogger->log(readrealtime()+"Xuất kho ở vị trí 2");
         robot->settrangthai(2,2);
         ui->name2->clear();
         ui->lineEdit_3->clear();
@@ -202,7 +214,7 @@ void MainWindow::on_xuat2_clicked()
 void MainWindow::on_nhap2_clicked()
 {
     if(_data.getdata(1)==false){
-        debugLogger->log("Nhập kho vào vị trí 2");
+        debugLogger->log(readrealtime()+"Nhập kho vào vị trí 2");
         robot->settrangthai(1,2);
         ui->lineEdit_4->setText(readdatenow());
         ui->khosp2->setPixmap(image2);
@@ -214,7 +226,7 @@ void MainWindow::on_nhap2_clicked()
 void MainWindow::on_xuat3_clicked()
 {
     if(_data.getdata(2)==true){
-        debugLogger->log("Xuất kho ở vị trí 3");
+        debugLogger->log(readrealtime()+"Xuất kho ở vị trí 3");
         robot->settrangthai(2,3);
         ui->name3->clear();
         ui->lineEdit_5->clear();
@@ -228,7 +240,7 @@ void MainWindow::on_xuat3_clicked()
 void MainWindow::on_nhap3_clicked()
 {
     if(_data.getdata(2)==false){
-        debugLogger->log("Nhập kho vào vị trí 3");
+        debugLogger->log(readrealtime()+"Nhập kho vào vị trí 3");
         robot->settrangthai(1,3);
         ui->lineEdit_6->setText(readdatenow());
         ui->khosp3->setPixmap(image3);
