@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui  network
-LIBS += -lwiringPi
+LIBS +=  -lwiringPi
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = listview

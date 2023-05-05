@@ -23,12 +23,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
      m_firebase= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/1.json");
 
-     m_firebase2= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/control");
+     m_firebase2= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/controljson");
 
     connect(robot,&classrobot::SetTrangThaiSingal,&_data,&readdata::GetSetVitri);
     connect(m_firebase,&classfirebase::dataChanged,this,&MainWindow::onFirebaseDataReceived);
 
-    //connect(m_firebase2,&classfirebase::dataChanged,this,&MainWindow::DataControlRecieve);
+    connect(m_firebase2,&classfirebase::dataChanged,this,&MainWindow::DataControlRecieve);
 
 }
 MainWindow::~MainWindow()
@@ -112,15 +112,43 @@ void MainWindow::DataControlRecieve(QString data)
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
     int codecontrol = jsonObj["ct1"].toInt();
+    if(codecontrol==0)return;
     switch (codecontrol) {
     case 1:
-        robot->settrangthai(2,1);
+        if(_data.getdata(0)==true){
+            debugLogger->log( "Xuất kho ở vị trí 1");
+            robot->settrangthai(2,1);
+            ui->name1->clear();
+            ui->lineEdit->clear();
+            ui->lineEdit_2->clear();
+            ui->khosp1->clear();
+            ui->khosp1->setText("Trống");
+        }
+        else{qDebug()<<"Ko có sản phẩm";}
         break;
     case 2:
-        robot->settrangthai(2,2);
+        if(_data.getdata(1)==true){
+            debugLogger->log("Xuất kho ở vị trí 2");
+            robot->settrangthai(2,2);
+            ui->name2->clear();
+            ui->lineEdit_3->clear();
+            ui->lineEdit_4->clear();
+            ui->khosp2->clear();
+            ui->khosp2->setText("Trống");
+        }
+        else{qDebug()<<"Ko có sản phẩm";}
         break;
     case 3:
-        robot->settrangthai(2,3);
+        if(_data.getdata(2)==true){
+            debugLogger->log("Xuất kho ở vị trí 3");
+            robot->settrangthai(2,3);
+            ui->name3->clear();
+            ui->lineEdit_5->clear();
+            ui->lineEdit_6->clear();
+            ui->khosp3->clear();
+            ui->khosp3->setText("Trống");
+        }
+        else{qDebug()<<"Ko có sản phẩm";}
         break;
     case 4:
         robot->settrangthai(0,0);
