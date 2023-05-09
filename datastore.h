@@ -13,6 +13,7 @@ public:
     datastore();
     int checkstore(QString qr);
     void Writedata(QString Qr,int local);
+    void Writredataxuat(QString qr);
 
 };
 
