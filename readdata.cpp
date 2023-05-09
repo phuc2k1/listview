@@ -3,6 +3,12 @@
 
 readdata::readdata()
 {
+    QFile file(LINK);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text|QIODevice::Truncate)){
+        QTextStream in(&file);
+        in<<"0,0,0";
+        file.close();
+    }
 
 
 }

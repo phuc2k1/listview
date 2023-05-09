@@ -31,7 +31,8 @@ SOURCES += \
     classrobot.cpp \
     readdata.cpp \
     classfirebase.cpp \
-    checkdata.cpp
+    checkdata.cpp \
+    datastore.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     classrobot.h \
     readdata.h \
     classfirebase.h \
-    checkdata.h
+    checkdata.h \
+    datastore.h
 
 FORMS += \
         mainwindow.ui

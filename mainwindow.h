@@ -7,6 +7,7 @@
 #include"readdata.h"
 #include"checkdata.h"
 #include"classfirebase.h"
+#include"datastore.h"
 namespace Ui {
 class MainWindow;
 }
@@ -21,6 +22,7 @@ public:
     classrobot* robot ;
     readdata _data;
      QDate date;
+     datastore _datastore;
 
 
 
@@ -39,6 +41,8 @@ private:
     QPixmap image2;
     QPixmap image3;
     DebugLogger* debugLogger;
+
+
 
 private slots:
 

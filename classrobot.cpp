@@ -68,10 +68,10 @@ void classrobot::setvat(int a)  {
         thucthi(1,-50);//haxuong
         thucthi(4,-100);//gap
         thucthi(1,50);//nang
-        //thucthi(3,-30);//be len
+        thucthi(3,-20);//be len
         thucthi(0,b);//quay
         delay(1000);
-        //thucthi(3,30);//bexuong
+        thucthi(3,20);//bexuong
         thucthi(1,-50);//ha
         thucthi(4,100);//nha
         thucthi(1,50);//nanglen

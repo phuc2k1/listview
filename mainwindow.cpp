@@ -59,9 +59,11 @@ QString MainWindow::readrealtime()
 void MainWindow::xulychinh(QString tensp,QString masp)
 {
     int vitri=_data.getvitri();
+    if(vitri!=4)_datastore.Writedata(masp,vitri);
 
         switch(vitri){
         case 1:
+
             debugLogger->log(readrealtime()+"Nhập kho vào vị trí 1");
             robot->settrangthai(1,1);
             ui->name1->setText(tensp);
@@ -123,9 +125,10 @@ void MainWindow::DataControlRecieve(QString data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
-    int codecontrol = jsonObj["ct1"].toInt();
-    if(codecontrol==0)return;
-    switch (codecontrol) {
+    int codeqrcontrol = jsonObj["ct1"].toInt();
+    if(codeqrcontrol==0)return;
+    if(_datastore.checkstore(data)==-1){qDebug()<<"ma sai";}
+    switch (_datastore.checkstore(data)) {
     case 1:
         if(_data.getdata(0)==true){
             debugLogger->log(readrealtime()+ "Xuất kho ở vị trí 1");
