@@ -21,9 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
     robot=new classrobot();
     //ui->label_13->setStyleSheet("background-color:Gray");
 
-     m_firebase= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/1.json");
+     m_firebase= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/Scan.json");
 
-     m_firebase2= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/controljson");
+     m_firebase2= new classfirebase("https://phuc-2f523-default-rtdb.firebaseio.com/Scan.json");
 
     connect(robot,&classrobot::SetTrangThaiSingal,&_data,&readdata::GetSetVitri);
     connect(m_firebase,&classfirebase::dataChanged,this,&MainWindow::onFirebaseDataReceived);
@@ -99,7 +99,7 @@ void MainWindow::onFirebaseDataReceived(QString data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
-    QString qrcode = jsonObj["belt1"].toString();
+    QString qrcode = jsonObj["nhap"].toString();
     debugLogger->log(readrealtime()+"Phát hiện mã code  :"+qrcode);
     if(qrcode=="0")return;
 
@@ -125,7 +125,7 @@ void MainWindow::DataControlRecieve(QString data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
-    QString codeqrcontrol = jsonObj["ct1"].toString();
+    QString codeqrcontrol = jsonObj["xuat"].toString();
     if(codeqrcontrol==0)return;
     if(_datastore.checkstore(codeqrcontrol)==-1){qDebug()<<"ma sai";}
     switch (_datastore.checkstore(data)) {
