@@ -127,7 +127,8 @@ void MainWindow::DataControlRecieve(QString data)
     QJsonObject jsonObj = jsonDoc.object();
     QString codeqrcontrol = jsonObj["xuat"].toString();
     if(codeqrcontrol==0)return;
-    if(_datastore.checkstore(codeqrcontrol)==-1){qDebug()<<"ma sai";}
+    if(_datastore.checkstore(codeqrcontrol)==-1){qDebug()<<"ma sai";return;}
+    _datastore.Writredataxuat(codeqrcontrol);
     switch (_datastore.checkstore(data)) {
     case 1:
         if(_data.getdata(0)==true){
