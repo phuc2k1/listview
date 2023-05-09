@@ -1,6 +1,6 @@
 #ifndef DATASTORE_H
 #define DATASTORE_H
-#define LINK "/home/pi/Desktop/listview/data2/checkdata.txt"
+#define LINK "/home/pi/Desktop/listview/data2/datastore.txt"
 #include <QFile>
 #include <QTextStream>
 #include <QString>

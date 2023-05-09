@@ -15,11 +15,11 @@ QString checkdata::checkdatatext(QString dataqr)
         QJsonDocument doc = QJsonDocument::fromJson(_datastr.toUtf8());
         QJsonObject dataobj = doc.object();
         for(auto i=dataobj.constBegin();i!=dataobj.constEnd();i++){
-            if(i.value().toInt()==dataqr.toInt()){
-                qDebug()<<i.key()<<i.value().toInt();
-                int datamatxt=i.value().toInt();
+            if(i.value().toDouble()==dataqr.toDouble()){
+                qDebug()<<i.key()<<i.value().toDouble();
+                double datamatxt=i.value().toDouble();
                 file.close();
-                return i.key()+":"+QString::number(datamatxt);
+                return i.key()+":"+QString::number(datamatxt,'f',0);
             }
         }
 

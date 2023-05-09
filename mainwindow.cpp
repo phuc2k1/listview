@@ -125,9 +125,9 @@ void MainWindow::DataControlRecieve(QString data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data.toUtf8());
     QJsonObject jsonObj = jsonDoc.object();
-    int codeqrcontrol = jsonObj["ct1"].toInt();
+    QString codeqrcontrol = jsonObj["ct1"].toString();
     if(codeqrcontrol==0)return;
-    if(_datastore.checkstore(data)==-1){qDebug()<<"ma sai";}
+    if(_datastore.checkstore(codeqrcontrol)==-1){qDebug()<<"ma sai";}
     switch (_datastore.checkstore(data)) {
     case 1:
         if(_data.getdata(0)==true){
