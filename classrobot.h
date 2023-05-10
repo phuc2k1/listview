@@ -2,10 +2,10 @@
 #define CLASSROBOT_H
 #include "classservo.h"
 #include"qvector.h"
-#define TRANGTHHAI {30,80,70,180,160}
-#define VITRI_1 80
+#define TRANGTHHAI {30,80,110,160,160}
+#define VITRI_1 70
 #define VITRI_2 90
-#define VITRI_3 100
+#define VITRI_3 110
 
 #define SERVO_PIN 0//11
 #define SERVO_PIN_1 1//12

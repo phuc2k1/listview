@@ -98,8 +98,8 @@ void MainWindow::xulychinh(QString tensp,QString masp)
 void MainWindow::onFirebaseDataReceived(QString data)
 {
 
-    data=data.remove(0,1);
-    data=data.remove(data.length()-1,1);
+    data=data.mid(3,data.length()-6);
+
     QString qrcode=data;
 
 
@@ -128,8 +128,7 @@ void MainWindow::onFirebaseDataReceived(QString data)
 void MainWindow::DataControlRecieve(QString data)
 {
 
-    data=data.remove(0,1);
-    data=data.remove(data.length()-1,1);
+    data=data.mid(3,data.length()-6);
     QString codeqrcontrol = data;
     if(codeqrcontrol==0)return;
     if(_datastore.checkstore(codeqrcontrol)==-1){qDebug()<<"ma sai";return;}

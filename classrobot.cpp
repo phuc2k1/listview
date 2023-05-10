@@ -58,50 +58,56 @@ void classrobot::thucthi(int a, int b){
 }
 void classrobot::setvat(int a)  {
     int b;
+    bool c=true;
         qDebug()<<"Thuc hien lenh dat vi tri: "<<a;
         if (a==1)
             {b=VITRI_1;}
         else if (a==2)
-            {b=VITRI_2;}
+            {b=VITRI_2;c=false;}
         else if (a==3)
             {b=VITRI_3;}
         thucthi(1,-50);//haxuong
-        thucthi(4,-100);//gap
+        thucthi(4,-80);//gap
         thucthi(1,50);//nang
-        thucthi(3,-20);//be len
+        //thucthi(3,-20);//be len
         thucthi(0,b);//quay
         delay(1000);
-        thucthi(3,20);//bexuong
-        thucthi(1,-50);//ha
-        thucthi(4,100);//nha
-        thucthi(1,50);//nanglen
+        if(c==true)thucthi(2,-10);
+        //thucthi(3,20);//bexuong
+        thucthi(1,-60);//ha
+        thucthi(4,80);//nha
+        thucthi(1,60);//nanglen
         thucthi(0,-b);//quayve
         delay(1000);
+        if(c==true)thucthi(2,10);
         //thucthi(1,-40);//haxuong
 
 }
 void classrobot::getvat(int a){
     int b;
+    bool c=true;
         qDebug()<<"Thuc hien lenh lay vi tri: "<<a;
         if (a==1)
             {b=VITRI_1;}
         else if (a==2)
-            {b=VITRI_2;}
+            {b=VITRI_2;c=false;}
         else if (a==3)
             {b=VITRI_3;}
         //thucthi(1,40);//nang1
-        thucthi(3,-20);//be len2
+        //thucthi(3,-20);//be len2
         thucthi(0,b);//xoay3
         delay(1000);
-        thucthi(1,-40);//ha4
-        thucthi(3,20);//be xuong5
-        thucthi(4,-100);//gap6
-        thucthi(1,40);//nang7
+        if(c==true)thucthi(2,-10);
+        thucthi(1,-60);//ha4
+        //thucthi(3,20);//be xuong5
+        thucthi(4,-80);//gap6
+        thucthi(1,60);//nang7
         thucthi(0,-b);//xoay8
         delay(1000);
-        thucthi(1,-40);//ha9
-        thucthi(4,100);//nha10
-        thucthi(1,40);//nanglen
+        if(c==true)thucthi(2,10);
+        thucthi(1,-50);//ha9
+        thucthi(4,80);//nha10
+        thucthi(1,50);//nanglen
 
 
 
